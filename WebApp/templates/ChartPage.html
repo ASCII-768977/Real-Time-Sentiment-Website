@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ChartPage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0-rc.2/echarts-en.common.js"
+            integrity="sha256-1cSbMmHM/mglZwI1g59J6fA2ahwAaZayKxob0keiU1Y=" crossorigin="anonymous"></script>
+    <link href="/static/css/ChartStyle.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<header>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">RealTime Chart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="MapPage.html">MapView</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+                        Melbourne
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#melSection">All Mel</a>
+                        <a class="dropdown-item" href="#cbdSection">cbd</a>
+                        <a class="dropdown-item" href="#preSection">pre</a>
+                        <a class="dropdown-item" href="#donSection">don</a>
+                        <a class="dropdown-item" href="#SYSection">SY</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sydSection">Sydney</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#adeSection">Adelaide</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#briSection">Brisbane</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="myheader jumbotron text-center mb-0" style="background-color: beige">
+        <div class='container'>
+            <h1 class="jumbotron-heading display-4" style="margin-top: 30px">Chart Data Visualization</h1>
+            <p class="lead text-muted">realtime sentiment and topics in charts</p>
+        </div>
+
+    </section>
+</header>
+
+<main>
+    <div class="col" style="padding-top: 20px; padding-bottom:20px;">
+
+
+        <div class="container" style="background-color:#EFFBFB;border-radius:25px;padding: 20px;margin-bottom: 20px">
+            <div id='melSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <img class="col-12" src="/static/img/flinders.jpg"
+                         style="height:auto;max-width:100%;margin-bottom: 20px;">
+                </div>
+                <p>Melbourne is the home to many of the best-known cultural institutions in the nation, such as the
+                    Melbourne Cricket Ground, the National Gallery of Victoria and the World Heritage-listed Royal
+                    Exhibition Building. It is also the birthplace of Australian impressionism, Australian rules
+                    football, the Australian film and television industries and Australian contemporary dance. More
+                    recently, it has been recognised as a UNESCO City of Literature and a global centre for street art,
+                    live music and theatre.</p>
+                <div class="row">
+                    <div id="mel" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Melbourne</h3>
+                        <p id="melHotTopic" class='text-center'>need loading(^3^)please wait a second</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#FBEFEF;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='sydSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <img class="col-12" src="/static/img/sydney.jpg"
+                         style="height:auto;max-width:100%;margin-bottom: 20px;">
+                </div>
+                <p>Sydney is the state capital of New South Wales and the most populous city in Australia and Oceania.
+                    Located on Australia's east coast, the metropolis surrounds Port Jackson and extends about 70 km
+                    (43.5 mi) on its periphery towards the Blue Mountains to the west, Hawkesbury to the north, the
+                    Royal National Park to the south and Macarthur to the south-west.</p>
+                <div class="row">
+                    <div id="syd" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Sydney</h3>
+                        <p id="sydHotTopic" class='text-center'>ヾ(･ε･｀*) need loading (^.^)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#EFEFFB;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='adeSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <img class="col-12" src="/static/img/adelaide.jpg"
+                         style="height:500px;max-width:100%;margin-bottom: 20px">
+                </div>
+                <p>Adelaide is the capital city of the state of South Australia, and the fifth-most populous city of
+                    Australia. The demonym Adelaidean is used to denote the city and its residents.<br><br>Adelaide is
+                    situated on the Adelaide Plains north of the Fleurieu Peninsula, between the Gulf St Vincent in the
+                    west and the Mount Lofty Ranges in the east. Its metropolitan area extends 20 km (12 mi) from the
+                    coast to the foothills, and stretches 96 km (60 mi) from Gawler in the north to Sellicks Beach in
+                    the south.</p>
+                <div class="row">
+                    <div id="ade" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Adelaide</h3>
+                        <p id="adeHotTopic" class='text-center'>O(∩_∩)O need loading (～￣▽￣)～</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#EFFBEF;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='briSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <img class="col-12" src="/static/img/brisbane.jpg"
+                         style="height:auto;max-width:100%;margin-bottom: 20px;">
+                </div>
+
+                <p>Brisbane is the capital of and the most populated city in the Australian state of Queensland, and the
+                    third most populous city in Australia. Brisbane's metropolitan area has a population of
+                    approximately 2.5 million, and the South East Queensland metropolitan region, centred on Brisbane,
+                    encompasses a population of more than 3.6 million.</p>
+                <div class="row">
+                    <div id="bri" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Brisbane</h3>
+                        <p id="briHotTopic" class='text-center'>o(TωT)o need loading ~(￣▽￣)~*</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#FBEFFB;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='cbdSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <div class="col-6">
+                        <p style="margin-bottom: 30px">Melbourne City Centre is the central built up area of the city of
+                            Melbourne, Victoria, Australia, centred on the Hoddle Grid, the oldest part of the city laid
+                            out in 1837, and includes its fringes. It is not to be confused with the larger local
+                            government area of the City of Melbourne which includes this area and the inner suburbs
+                            around it.</p>
+                    </div>
+                    <div class="col-3">
+                        <img src="static/img/cbd.jpg" style="height:auto;max-width: 100%;margin-bottom: 30px">
+                    </div>
+                    <div class="col-3">
+                        <img src="static/img/firework.jpg" style="height:auto;max-width: 100%;margin-bottom: 30px">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="cbd" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Mel CBD</h3>
+                        <p id="cbdHotTopic" class='text-center'>(^._.^)ﾉ need loading ^(OO)^</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#FBFBEF;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='preSection' style="padding-top:70px;padding-bottom:30px">
+
+                <div class="row">
+                    <img class="col-12" src="/static/img/preston.jpg"
+                         style="height:auto;max-width:100%;margin-bottom: 20px;">
+                </div>
+                <p style="margin-bottom: 30px">Preston is a suburb of Melbourne, Victoria, Australia, 9 km north from
+                    the Melbourne central business district. Its local government area is the City of Darebin. At the
+                    2016 Census, Preston had a population of 32,851.</p>
+
+
+                <div class="row">
+                    <div id="pre" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Preston</h3>
+                        <p id="preHotTopic" class='text-center'>_(:з」∠)_ need loading  (⊙ˍ⊙)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#FBEFF2;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='donSection' style="padding-top:70px;padding-bottom:30px">
+                <div class="row">
+                    <div class="col-6">
+                        <p>Camberwell is a suburb of Melbourne, Victoria, Australia, 9 km east of Melbourne's Central
+                            Business District. Its local government area is the City of Boroondara. At the 2016 Census,
+                            Camberwell had a population of 22,081.
+                            <br><br>
+                            Camberwell is designated one of 26 Principal Activity Centres in the Melbourne 2030
+                            Metropolitan Strategy.</p>
+                    </div>
+                    <div class="col-3">
+                        <img src="static/img/coffee.jpg" style="height:auto;max-width: 100%;margin-bottom: 30px">
+                    </div>
+                    <div class="col-3">
+                        <img src="static/img/river.jpg" style="height:auto;max-width: 100%;margin-bottom: 30px">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="don" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in Camberwell</h3>
+                        <p id="donHotTopic" class='text-center'>(*^__^*) need loading (*≧∪≦)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" style="background-color:#EFF8FB;border-radius:25px; padding: 20px;margin-top: 20px">
+            <div id='SYSection' style="padding-top:70px;padding-bottom:30px;">
+                <div class="row">
+                    <img class="col-12" src="/static/img/SY.jpg"
+                         style="height:auto;max-width:100%;margin-bottom: 20px;">
+                </div>
+                <p style="margin-bottom: 30px">South Yarra is an inner suburb of Melbourne, Victoria, Australia, 4 km
+                    south-east of Melbourne's Central Business District, located within the Cities of Melbourne and
+                    Stonnington local government areas. South Yarra recorded a population of 25,147 at the 2016 Census.
+                    <br><br>
+                    South Yarra is also home to some of Melbourne's most prestigious residential addresses. Residential
+                    land price records (per square metre) have been set by properties in Domain Road, Walsh Street and
+                    Fairlie Court.</p>
+                <div class="row">
+                    <div id="SY" class='col-6' style="height:450px;border:1px solid #ccc;padding:10px;"></div>
+                    <div class='col-6'>
+                        <h3 class='text-center'>Realtime Top 5 Hot Topics in SouthYarra</h3>
+                        <p id="SYHotTopic" class='text-center'>\(^o^)/ need loading o(TωT)o </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/static/js/ChartFunctions.js"></script>
+
+    </div>
+
+</main>
+
+<footer>
+    <div style="background-color:#FAFAFA">
+        <div class="container pt-5 pb-5">
+
+            <p class="btn btn-primary my-2 float-right">
+                <a href="#" style="color: #fff">back to top</a>
+            </p>
+            <div class="row">
+                <div class="col-2">
+                    <img src="/static/img/unimelb.jpg" style="height:5em;max-width:100%">
+                </div>
+
+                <div class="col">
+                    <p>Design by Yuming Lin 883717, Jiaqi Li 963113</p>
+                    <p>The University of Melbourne, 2019</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

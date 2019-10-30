@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0-rc.2/echarts-en.common.js"
+            integrity="sha256-1cSbMmHM/mglZwI1g59J6fA2ahwAaZayKxob0keiU1Y=" crossorigin="anonymous"></script>
+    <link href="/static/css/Style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<header>
+    <div id="slides" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1"></li>
+        </ul>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/static/img/emotion.jpeg">
+                <div class="carousel-caption">
+                    <h3>View by Map</h3>
+                    <a href="MapPage.html" class="btn btn-primary btn-lg">Start</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/img/emotion2.jpg">
+                <div class="carousel-caption">
+                    <h3>View by Chart</h3>
+                    <a href="ChartPage.html" class="btn btn-primary btn-lg">Start</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section>
+        <div class="container-fluid padding">
+            <div class="row text-center jumbotron" style="margin-bottom: 0;">
+                <div class="col-12">
+                    <h1 class="display-4">Welcome to Real Time Twitter Sentiment Analysis</h1>
+                </div>
+
+                <div class="col-12">
+                    <p class="lead">help you discover sentiment of Australian residents</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="col-12" style="margin-top: 30px;margin-bottom: 30px;">
+            <h2 style="text-align: center">Sentiment Analysis Introduction</h2>
+            <p>Sentiment analysis (also known as opinion mining or emotion AI) refers to the use of natural language
+                processing, text analysis, computational linguistics, and biometrics to systematically identify,
+                extract, quantify, and study affective states and subjective information. Sentiment analysis is widely
+                applied to voice of the customer materials such as reviews and survey responses, online and social
+                media, and healthcare materials for applications that range from marketing to customer service to
+                clinical medicine.<br><br>A basic task in sentiment analysis is classifying the polarity of a given text
+                at the document, sentence, or feature/aspect level—whether the expressed opinion in a document, a
+                sentence or an entity feature/aspect is positive, negative, or neutral. Advanced, "beyond polarity"
+                sentiment classification looks, for instance, at emotional states such as "angry", "sad", and "happy".
+            </p>
+            <div class="col" style="text-align: center;">
+                <img src="/static/img/spark.png" style="height: auto;max-width: 100%;border-radius:25px">
+            </div>
+            <h2 style="text-align: center">Spark</h2>
+            <p>Apache Spark has as its architectural foundation the resilient distributed dataset (RDD), a read-only
+                multiset of data items distributed over a cluster of machines, that is maintained in a fault-tolerant
+                way. The Dataframe API was released as an abstraction on top of the RDD, followed by the Dataset API. In
+                Spark 1.x, the RDD was the primary application programming interface (API), but as of Spark 2.x use of
+                the Dataset API is encouraged[3] even though the RDD API is not deprecated. The RDD technology still
+                underlies the Dataset API.<br><br>Spark and its RDDs were developed in 2012 in response to limitations
+                in the MapReduce cluster computing paradigm, which forces a particular linear dataflow structure on
+                distributed programs: MapReduce programs read input data from disk, map a function across the data,
+                reduce the results of the map, and store reduction results on disk. Spark's RDDs function as a working
+                set for distributed programs that offers a (deliberately) restricted form of distributed shared memory.
+            </p>
+            <div class="col" style="text-align: center;">
+                <img src="/static/img/nectar.png"
+                     style="height: auto;max-width: 100%;border-radius:25px;margin-top: 20px;margin-bottom: 20px">
+            </div>
+            <h2 style="text-align: center">Necter</h2>
+            <p>Nectar provides an online infrastructure that supports researchers to: connect with colleagues in
+                Australia and around the world, collaborate and share ideas and research outcomes, and ultimately
+                contribute to our collective knowledge.</p>
+            <div class="container" style="padding-left: 50px;padding-right: 50px">
+                <h4 style="text-align: center">Australia’s fastest growing researcher network</h4>
+                <p>The National eResearch Collaboration Tools and Resources project (Nectar) provides an online
+                    infrastructure that supports researchers to connect with colleagues in Australia and around the
+                    world, allowing them to collaborate and share ideas and research outcomes, which will ultimately
+                    contribute to our collective knowledge and make a significant impact on our society.<br><br>Nectar
+                    Virtual Labs are rich domain-oriented online environments that draw together research data, models,
+                    analysis tools and workflows to support collaborative research across institutional and discipline
+                    boundaries. They are built and led by the Australian research sector and are used nationally and
+                    internationally by the research community.<br><br>Nectar Cloud provides computing infrastructure,
+                    software and services that allow Australia’s research community to store, access, and analyse data,
+                    remotely, rapidly and autonomously. Nectar Cloud’s self-service structure allows users to access
+                    their own data at any time and collaborate with others from their desktop in a fast and efficient
+                    way.</p>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <div style="background-color:#FAFAFA">
+        <div class="container pt-5 pb-5">
+
+            <p class="btn btn-primary my-2 float-right" style="margin-left: 20px">
+                <a href="/ChartPage.html" style="color: #fff">ViewCharts</a>
+            </p>
+            <p class="btn btn-primary my-2 float-right" style="
+                   margin-right: 20px">
+                <a href="/MapPage.html" style="color: #fff">ViewMap</a>
+            </p>
+            <div class="row">
+                <div class="col-2">
+                    <img src="/static/img/unimelb.jpg" style="height:5em;max-width:100%">
+                </div>
+
+                <div class="col">
+                    <p>Design by Yuming Lin 883717, Jiaqi Li 963113</p>
+                    <p>The University of Melbourne, 2019</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

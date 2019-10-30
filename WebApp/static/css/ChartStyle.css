@@ -1,0 +1,5 @@
+.myheader {
+    height: 200px;
+    background-color: antiquewhite; /* 不支持线性的时候显示 */
+    background-image: linear-gradient(to right, antiquewhite, #F5A9F2);
+}

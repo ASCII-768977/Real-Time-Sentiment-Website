@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MapPage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"
+            integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0-rc.2/echarts-en.common.js"
+            integrity="sha256-1cSbMmHM/mglZwI1g59J6fA2ahwAaZayKxob0keiU1Y=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link href="/static/css/MapStyle.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">RealTime Map</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="ChartPage.html">ChartPage</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+                        RealTime Map
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#auSection">Australia Review</a>
+                        <a class="dropdown-item" href="#melSection">Melbourne</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#hisSection">
+                        History Map
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section class="myheader jumbotron text-center mb-0" style="background-color:antiquewhite">
+        <div class='container'>
+            <h1 class="jumbotron-heading display-4" style="margin-top: 30px">Map Data Visualization</h1>
+            <p class="lead text-muted">realtime and history sentiment topics in map view</p>
+        </div>
+
+    </section>
+</header>
+
+<main>
+
+    <div class="col" style="padding-top:30px;padding-bottom:70px;background-color:#E6E6E6">
+
+        <div id='auSection' style="padding-top:70px;padding-bottom:30px">
+            <div class="container">
+                <div class="container" style="background-color: cornsilk;border-radius:25px">
+
+                    <div class="row">
+                        <img class="col-12" src="/static/img/aupics.jpg"
+                             style="height:auto;max-width:100%;margin-top:20px;margin-bottom: 20px">
+                    </div>
+                    <p>Australia, officially the Commonwealth of Australia, is a sovereign country comprising the
+                        mainland of the Australian continent, the island of Tasmania, and numerous smaller islands. It
+                        is the largest country in Oceania and the world's sixth-largest country by total area.</p>
+                    <div class="row">
+                        <img class="col-6" src="/static/img/koala.jpg"
+                             style="height:auto;max-width:50%;margin-bottom:20px">
+                        <img class="col-6" src="/static/img/kangaroo.jpg"
+                             style="height:auto;max-width:50%;margin-bottom:20px">
+                    </div>
+                </div>
+                <div id="sentimentMap" class='col-12'
+                     style="width:600px;height: 500px;margin-left: auto;margin-right: auto;margin-top: 50px"></div>
+            </div>
+        </div>
+        <div id='melSection' style="padding-top:70px;padding-bottom:30px">
+            <div class="container">
+                <div class="container" style="background-color:#EFFBEF;border-radius:25px">
+                    <div class="row">
+                        <img class="col-12" src="/static/img/melbourne.jpg"
+                             style="height:auto;max-width:100%;margin-top:20px;margin-bottom: 20px">
+                    </div>
+                    <p>Melbourne is the capital and most populous city of the Australian state of Victoria, and the
+                        second most populous city in Australia and Oceania. Its name refers to an urban agglomeration of
+                        2,080 km2 (800 sq mi), comprising a metropolitan area with 31 municipalities, and is also the
+                        common name for its city centre.</p>
+                    <div class="row">
+                        <img class="col-12" src="/static/img/busker.jpg"
+                             style="height:auto;max-width:100%;margin-bottom:20px">
+                    </div>
+                </div>
+                <div id="sentimentSuburb" class='col-12 pt-5'
+                     style="width:600px;height: 500px;margin-left: auto;margin-right: auto"></div>
+            </div>
+        </div>
+
+
+        <div id='hisSection' style="padding-top:70px;padding-bottom:70px">
+            <div class="container">
+                <div class="container" style="background-color:azure;border-radius:25px;margin-bottom: 20px;">
+                    <div class="row">
+                        <img class="col-12" src="/static/img/syd.jpg"
+                             style="height:auto;max-width:100%;margin-top:20px;margin-bottom: 20px">
+                    </div>
+                    <p>Twitter is a microblogging and social networking service on which users post and interact with
+                        messages known as "tweets". Tweets were originally restricted to 140 characters, but on November
+                        7, 2017, this limit was doubled to 280 for all languages except Chinese, Japanese, and Korean.</p>
+                </div>
+                <div id="sentimentAuHistory" class='col-12 pt-5'
+                     style="width:600px;height: 500px;margin-left: auto;margin-right: auto;margin-bottom: 30px"></div>
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Melbourne 2019 Top 5 Hot Topics</h3>
+                        <p id="melHistoryHotTopic" style="text-align: center">mel 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Sydney 2019 Top 5 Hot Topics</h3>
+                        <p id="sydHistoryHotTopic" style="text-align: center">syd 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Adelaide 2019 Top 5 Hot Topics</h3>
+                        <p id="adeHistoryHotTopic" style="text-align: center">ade 2019 hot topics</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Brisbane 2019 Top 5 Hot Topics</h3>
+                        <p id="briHistoryHotTopic" style="text-align: center">bri 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">CBD 2019 Top 5 Hot Topics</h3>
+                        <p id="cbdHistoryHotTopic" style="text-align: center">cbd 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Preston 2019 Top 5 Hot Topics</h3>
+                        <p id="preHistoryHotTopic" style="text-align: center">pre 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">Camberwell 2019 Top 5 Hot Topics</h3>
+                        <p id="donHistoryHotTopic" style="text-align: center">don 2019 hot topic</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3 style="text-align: center">SouthYarra 2019 Top 5 Hot Topics</h3>
+                        <p id="SYHistoryHotTopic" style="text-align: center">SY 2019 hot topic</p>
+                    </div>
+                </div>
+
+
+                <div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="/static/js/MapFunctions.js"></script>
+
+
+    </div>
+
+</main>
+
+
+<footer>
+    <div style="background-color:#FAFAFA">
+        <div class="container pt-5 pb-5">
+
+            <p class="btn btn-primary my-2 float-right">
+                <a href="#" style="color: #fff">back to top</a>
+            </p>
+            <div class="row">
+                <div class="col-2">
+                    <img src="/static/img/unimelb.jpg" style="height:5em;max-width:100%">
+                </div>
+
+                <div class="col">
+                    <p>Design by Yuming Lin 883717, Jiaqi Li 963113</p>
+                    <p>The University of Melbourne, 2019</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
