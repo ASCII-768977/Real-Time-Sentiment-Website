@@ -13,7 +13,6 @@ import ast
 async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 socketio = SocketIO(app)
 thread = None
@@ -214,5 +213,5 @@ def update_SY():
 
 if __name__ == '__main__':
     print('done')
-    socketio.run(app, debug=True)
+    socketio.run(app)
     #socketio.run(app, host='0.0.0.0', port=80, debug=True)

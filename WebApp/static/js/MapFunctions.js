@@ -181,7 +181,7 @@ $.getJSON('/static/json/melbourne.json', function (melJson) {
             color: ['#d94e5d', '#eac736', '#50a3ba'],
             text: ['Happy', 'sad'],
             textStyle: {
-                color: '#fff'
+                color: '#000000'
             }
         },
         toolbox: {
@@ -207,7 +207,7 @@ $.getJSON('/static/json/melbourne.json', function (melJson) {
                 data: [
                     {name: 'Melbourne (3000)', value: []},
                     {name: 'Preston', value: []},
-                    {name: 'Altona', value: []},
+                    {name: 'Camberwell', value: []},
                     {name: 'South Yarra', value: []}
                 ]
             }
@@ -296,7 +296,7 @@ function update_suburb(cbdData, preData, donData, SYData) {
                 data: [
                     {name: 'Melbourne (3000)', value: cbdSentiment},
                     {name: 'Preston', value: preSentiment},
-                    {name: 'Altona', value: donSentiment},
+                    {name: 'Camberwell', value: donSentiment},
                     {name: 'South Yarra', value: SYSentiment}
                 ]
             }
