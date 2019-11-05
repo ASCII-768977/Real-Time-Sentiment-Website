@@ -99,8 +99,6 @@ if __name__ == '__main__':
     # else:
     #     print('not enough parameter')
     #     sys.exit(0)
-    # name = socket.gethostname()
-    # num=''
 
     #run local
     city_name = 'south_yarra'

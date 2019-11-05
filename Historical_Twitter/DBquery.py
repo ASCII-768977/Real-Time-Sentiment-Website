@@ -35,64 +35,64 @@ viewDB_time={
 viewDB_text={
 	"text_view19_Jan":{
 		"map":"function(doc){"
-			  "if(doc.year==2019 & ){"
+			  "if(doc.year==2019 && doc.month==Jan ){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Fab":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Fab){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Mar":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Mar){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Apr":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Apr){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_May":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==May){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Jun":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Jun){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Jul":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Jul){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Aug":{
 		"map":"function(doc){"
-			  "if(doc.year==2019){"
+			  "if(doc.year==2019 && doc.month==Aug){"
 			  	"emit(doc.year,doc.text);}"
 			  "}"
 	},
 	"text_view19_Sep": {
 		"map": "function(doc){"
-			   "if(doc.year==2019){"
+			   "if(doc.year==2019 && doc.month==Sep){"
 			   "emit(doc.year,doc.text);}"
 			   "}"
 	}
 }
 
 
-def create_design_doc(city,design, view):
-	# try:
-	city[design] = dict(language='javascript', views=view)
+def create_design_doc(db, design, view):
+	try:
+		db[design] = dict(language='javascript', views=view)
 		#cities
 		# sydney[design] = dict(language='javascript', views=view)
 		# perth[design] = dict(language='javascript', views=view)
@@ -112,9 +112,9 @@ def create_design_doc(city,design, view):
 		# preston[design] = dict(language='javascript', views=view)
 		# brighton[design] = dict(language='javascript', views=view)
 
-	# except:
-	# 	del	melbourne[design]
-	# 	melbourne[design] = dict(language='javascript', views=view)
+	except:
+		del	db[design]
+		db[design] = dict(language='javascript', views=view)
 		# del sydney[design]
 		# sydney[design] = dict(language='javascript', views=view)
 		# del perth[design]
@@ -125,14 +125,10 @@ def create_design_doc(city,design, view):
 if __name__ == '__main__':
 	print('start')
 	couch = couchdb.Server('http://admin:project@45.113.234.34:5984')
-	# cities=['sydney1','adelaide1','south_yarra1','calton1']
-	# cities=['kew2','bundoora2','brisbane2','melbourne2']
-	# cities=['clayton3','camberwell3','perth3','canberra3']
-	cities=['cbd4','preston4','brighton4','doncaster4']
+	cities=['sydney1','adelaide1','south_yarra1','melbourne2','cbd4']
 	for city in cities:
 		print(city)
 		db=couch[city]
 		create_design_doc(db,'_design/mapview', viewDB_time)
-		# create_design_doc(db,'_design/textview', viewDB_text)
-		# create_design_doc('_design/foodtags', viewDB_topic)
+		create_design_doc(db,'_design/textview', viewDB_text)
 	print("done")
