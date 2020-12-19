@@ -1,16 +1,20 @@
 查看磁盘以可读形式展示
 df -h
-mkdir data
 分配volume
-mount -t auto /dev/vdb /data
+sudo mkdir data
+sudo mkfs -t ext4 /dev/vdb
+sudo mount -t auto /dev/vdb /data
 查看现有的disks
 fdisk -l
 分配存储地址
 mkfs.ext4 /dev/vdb
 
+查看当前路径
+pwd
+
 设置root的密码
 sudo passwd
-设置用户ubuntu密码
+设置用户ubuntu密码(关键，如果虚拟机崩盘需要用console重启。)
 sudo passwd ubuntu
 
 安装couchdb需要先在里面添加属于当前版本机器的sources.list
@@ -24,14 +28,20 @@ $ sudo apt-get update && sudo apt-get install couchdb
 
 $ sudo service couchdb restart
 
+sudo /etc/init.d/couchdb stop
+sudo /etc/init.d/couchdb start
+sudo /etc/init.d/couchdb restart
+
+
 改变couchdb存储位置
 /opt/couchdb/etc
+查看权限和改变权限
+ls -l 文件名
 chmod 777 local.ini
 加这三句话
 bind_address = 0.0.0.0
 database_dir = /data
 view_index_dir = /data
-
 
 查找
 whereis指令
@@ -45,7 +55,6 @@ curl -X POST -H "Content-Type: application/json" http://admin:project@127.0.0.1:
 curl -X POST -H "Content-Type: application/json" http://admin:project@127.0.0.1:5984/_cluster_setup -d '{"action": "add_node", "host":"45.113.234.207", "port": "5984", "username": "admin", "password":"project"}'
 
 curl -X POST -H "Content-Type: application/json" http://admin:project@127.0.0.1:5984/_cluster_setup -d '{"action": "finish_cluster"}'
-
 
 查看是否正常运行
 curl http://127.0.0.1:5984/
@@ -78,6 +87,61 @@ lsof +D /usr/local/：同上，但是会搜索目录下的目录，时间较长
 lsof -d 4：显示使用fd为4的进程
 lsof -i -U：显示所有打开的端口和UNIX domain文件
 netstat -tunlp | grep 端口号
+sudo netstat -tulpn | grep LISTEN
+
+proxy配置信息
+http_proxy="http://wwwproxy.unimelb.edu.au:8000"
+https_proxy="http://wwwproxy.unimelb.edu.au:8000"
+ftp_proxy="http://wwwproxy.unimelb.edu.au:8000"
+no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu
+
+docker的proxy配置信息
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+run docker couchdb的指令
+docker run -p 5984:5984 -d couchdb
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+[Service]
+Environment="HTTP_PROXY=http://wwwproxy.unimelb.edu.au:8000/"
+
+docker swarm run compose的指令
+docker stack deploy -c docker-compose.yml wordpress
+
+查看docker swarm服务
+docker stack ls
+
+docker停止stack服务
+docker stack down wordpress
+
+手动设置docker不需要sudo的指令
+sudo usermod -aG docker $USER
+sudo service docker restart
+
+进入docker container
+docker exec -it d27bd3008ad9 /bin/bash
+
+删除所有本地docker images，container
+docker stop $(docker ps -a -q) && docker system prune --all --force
+
+检查各类docker版本
+pip list | grep docker
+
+网络相关指令
+netstat -tnlp
+
+联合执行指令
+python3 newharvester.py & python3 searchByName.py & python3 process.py
+
+奇怪的shell脚本指令
+echo -e "\n"
+
+检查文件大小指令：
+ls  -lht 
+
+查找Nginx进程
+ps -ef|grep nginx
+
 
 vi指令合集
 https://www.runoob.com/linux/linux-vim.html
